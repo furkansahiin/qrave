@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../pages/users/loginPageScreen.dart';
+
 AppBar homepageAppbar() {
   return AppBar(
     actions: [
       IconButton(
         icon: Icon(Icons.search),
         onPressed: () {
-          // TODO: Implement search functionality
+          loginPageScreen();
         },
       ),
       IconButton(
         icon: Icon(Icons.account_circle),
         onPressed: () {
-          // TODO: Implement account functionality
+          loginPageScreen();
         },
       ),
     ],

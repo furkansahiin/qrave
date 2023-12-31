@@ -3,7 +3,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../components/appbarComponent.dart';
 import '../components/carouselComponent.dart';
-import '../components/googleAds.dart';
+// import '../components/googleAds.dart';
 import '../components/listComponents.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               20.heightBox,
               "Popüler Mekanlar".text.bold.xl2.align(TextAlign.left).make(),
               10.heightBox,
-              // PopulerCafeCarousel(),
+              PopulerCafeCarousel(),
               10.heightBox,
               // GoogleAdsContainer(),
               // NearCafeCarousel(),
