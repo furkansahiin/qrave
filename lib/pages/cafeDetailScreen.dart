@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qrave/components/bgComponents.dart';
 import 'package:qrave/components/buttonsComponents.dart';
+import 'package:qrave/pages/cafeInformationPages.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,104 +20,134 @@ class CafeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return bgWidget(
-      child: Scaffold(
+      child: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async{
+                                 
+                                 String mapsUrl = 'https://www.google.com/maps/search/?api=1&query=$address';
+            
+                                  if (await canLaunchUrl(Uri.parse(mapsUrl))) {
+                                    await launchUrl(Uri.parse(mapsUrl));
+                                  } else {
+                                    print('Could not launch $mapsUrl');
+                                  }
+                                },
+              child: Icon(Icons.directions),
+            ),
         appBar: AppBar(
           title: cafeName.text.make(),
         ),
         body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(imagePath, height: 220, width: (context.screenWidth * 1), fit: BoxFit.contain),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    cafeName.text.bold.size(24).make(),
-                    SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ourButton(
-                          title: 'Cafe Bilgileri',
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('Cafe Bilgileri'),
-                                  content: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Cafe Adı: $cafeName'),
-                                      Text('Adres: $address'),
-                                    ],
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('Kapat'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          textColor: Colors.white,
-                          color: Colors.red,
-                        ),
-                        ourButton(
-                          title: 'Yol Tarifi Al',
-                          onPressed: () async{
-                           
-                           String mapsUrl = 'https://www.google.com/maps/search/?api=1&query=$address';
-
-                            if (await canLaunchUrl(Uri.parse(mapsUrl))) {
-                              await launchUrl(Uri.parse(mapsUrl));
-                            } else {
-                              print('Could not launch $mapsUrl');
-                            }
-                          },
-                          textColor: Colors.white,
-                          color: Colors.red,
-                        ),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 225,
+                  child: Image.asset(imagePath, width: double.infinity, fit: BoxFit.contain),
+                ),
+                20.heightBox,
+                Container(
+                  height: 50,
+                  child: AppBar(
+                    bottom: TabBar(
+                      tabs: [
+                        Tab(icon: Icon(Icons.info)),
+                        Tab(icon: Icon(Icons.menu_book)),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              Image.asset(imagePath, height: 200, width: double.infinity, fit: BoxFit.cover),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    cafeName.text.bold.size(24).make(),
-                    SizedBox(height: 8),
-                    'Adres: $address'.text.size(18).make(),
-                  ],
+                // create widgets for each tab bar here
+                SizedBox(
+                  height: context.screenHeight - 350,
+                  child: TabBarView(
+                    children: [
+                      // first tab bar view widget
+                      CafeInformationWidget(cafeName: cafeName, address: address),
+                      CafeMenuWidget(cafeName: cafeName),
+                    ],
+                  ),
                 ),
-              ),
-              Image.asset(imagePath, height: 200, width: double.infinity, fit: BoxFit.cover),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    cafeName.text.bold.size(24).make(),
-                    SizedBox(height: 8),
-                    'Adres: $address'.text.size(18).make(),
-                  ],
-                ),
-              ),
-              // Diğer detaylar buraya eklenebilir
-            ],
-          ),
+                // Diğer detaylar buraya eklenebilir
+              ],
+            ),
+        ),
         ),
       ),
     );
   }
 }
+
+
+
+
+
+
+
+// Padding(
+//                       padding: const EdgeInsets.all(16.0),
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           cafeName.text.bold.size(24).make(),
+//                           SizedBox(height: 8),
+//                           Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                             children: [
+//                               ourButton(
+//                                 title: 'Cafe Bilgileri',
+//                                 onPressed: () {
+//                                   showDialog(
+//                                     context: context,
+//                                     builder: (BuildContext context) {
+//                                       return AlertDialog(
+//                                         title: Text('Cafe Bilgileri'),
+//                                         content: Column(
+//                                           crossAxisAlignment: CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('Cafe Adı: $cafeName'),
+//                                             Text('Adres: $address'),
+//                                           ],
+//                                         ),
+//                                         actions: [
+//                                           TextButton(
+//                                             onPressed: () {
+//                                               Navigator.of(context).pop();
+//                                             },
+//                                             child: Text('Kapat'),
+//                                           ),
+//                                         ],
+//                                       );
+//                                     },
+//                                   );
+//                                 },
+//                                 textColor: Colors.white,
+//                                 color: Colors.red,
+//                               ),
+//                               ourButton(
+//                                 title: 'Yol Tarifi Al',
+//                                 onPressed: () async{
+                                 
+//                                  String mapsUrl = 'https://www.google.com/maps/search/?api=1&query=$address';
+            
+//                                   if (await canLaunchUrl(Uri.parse(mapsUrl))) {
+//                                     await launchUrl(Uri.parse(mapsUrl));
+//                                   } else {
+//                                     print('Could not launch $mapsUrl');
+//                                   }
+//                                 },
+//                                 textColor: Colors.white,
+//                                 color: Colors.red,
+//                               ),
+//                             ],
+//                           ),
+        
+        
+//                         ],
+//                       ),
+        
+//                     ),
+            
+        
