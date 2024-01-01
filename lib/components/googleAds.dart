@@ -53,7 +53,7 @@
 //       child: 
 //       _isBannerAdLoaded
 //           ? AdWidget(ad: _bannerAd!):
-//            Container(height: 100, child: Center(child: "reklam alanı".text.make())),
+//            Container(height: 150, child: Center(child: "reklam alanı".text.make())),
 //     );
 //   }
 // }

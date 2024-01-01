@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qrave/components/bgComponents.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../components/buttonsComponents.dart';
@@ -63,98 +64,110 @@ class _LoginScreenState extends State<loginPageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: SingleChildScrollView(
-                  child: Center(
-                child: Column(
-                  children: [
-                  (context.screenHeight * 0.1).heightBox,
-                  // appNoTextlogoWidget(),
-                  10.heightBox,
-                  // appname.text.fontFamily(bold).size(22).white.make(),
-                  20.heightBox,
-                  Column(
+    return  bgWidget(
+        child: SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              // title: appname.text.size(22).white.make(),
+              // centerTitle: true,
+              leading: IconButton(
+    onPressed: () {
+      Get.offAllNamed("/");
+    },
+    icon: Icon(Icons.arrow_back, color: Colors.white), // Geri tuşunun rengini ayarla
+  ),
+            ),
+              resizeToAvoidBottomInset: false,
+              body: SingleChildScrollView(
+                    child: Center(
+                  child: Column(
                     children: [
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            custumTextFieldWidget(
-                              controller: emailController,
-                              hint: emailHint,
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                            Obx(
-                              () => passwordtextfield(
-                                controller: passwordController,
-                                hint: passwordHint,
-                                isObsecure: isObsecure,
+                    (context.screenHeight * 0.1).heightBox,
+                    // appNoTextlogoWidget(),
+                    10.heightBox,
+                    // appname.text.fontFamily(bold).size(22).white.make(),
+                    20.heightBox,
+                    Column(
+                      children: [
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              custumTextFieldWidget(
+                                controller: emailController,
+                                hint: emailHint,
+                                keyboardType: TextInputType.emailAddress,
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: Transform.translate(
-                          offset: Offset(0, -10), // Use a negative value to move it up
-                          child: TextButton(
-                            onPressed: () {},
-                            child: forgetPass.text.color(appcolorred).size(size13).make(),
+                              Obx(
+                                () => passwordtextfield(
+                                  controller: passwordController,
+                                  hint: passwordHint,
+                                  isObsecure: isObsecure,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),),
-                      // login button
-                      _isLoading
-                        ? CircularProgressIndicator(
-                          color: appcolor,
-                        ).centered()
-                        : ourButton(
-                              title: loginButton,
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
-                                    // loginUserNow();
-                                  }else{
+                        ),
+                        
+                        Align(
+                            alignment: Alignment.centerRight,
+                            child: Transform.translate(
+                            offset: Offset(0, -10), // Use a negative value to move it up
+                            child: TextButton(
+                              onPressed: () {},
+                              child: forgetPass.text.color(appcolorred).size(size13).make(),
+                            ),
+                          ),),
+                        // login button
+                        _isLoading
+                          ? CircularProgressIndicator(
+                            color: appcolor,
+                          ).centered()
+                          : ourButton(
+                                title: loginButton,
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+                                      // loginUserNow();
+                                    }else{
+                                      Get.snackbar(errorTitle, textFieldEmpty, snackPosition: SnackPosition.BOTTOM, backgroundColor: errorred, colorText: whiteColor);
+                                    }
+                                  } else {
                                     Get.snackbar(errorTitle, textFieldEmpty, snackPosition: SnackPosition.BOTTOM, backgroundColor: errorred, colorText: whiteColor);
                                   }
-                                } else {
-                                  Get.snackbar(errorTitle, textFieldEmpty, snackPosition: SnackPosition.BOTTOM, backgroundColor: errorred, colorText: whiteColor);
-                                }
-                              },
-                              textColor: blackColor,
-                              color: appcolor)
-                          .box
-                          .width(context.screenWidth - 50)
-                          .make(),
-                      10.heightBox,
-                      createNewAccount.text.gray600.size(size13).make(),
-                      10.heightBox,
-                      ourButton(
-                              title: signupButton,
-                              onPressed: () {
-                              Get.offAllNamed('/signup');
-                              },
-                              textColor: blackColor,
-                              color: appcolor)
-                          .box
-                          .width(context.screenWidth - 50)
-                          .make(),
-                      5.heightBox,
-                      
-                    ],
-                  )
-                      .box
-                      .color(whiteColor)
-                      .rounded
-                      .padding(const EdgeInsets.all(16.0))
-                      .width(context.screenWidth - 60)
-                      .make(),
-                              ],
-                            ),
-                ))),
+                                },
+                                textColor: blackColor,
+                                color: appcolor)
+                            .box
+                            .width(context.screenWidth - 50)
+                            .make(),
+                        10.heightBox,
+                        createNewAccount.text.gray600.size(size13).make(),
+                        10.heightBox,
+                        ourButton(
+                                title: signupButton,
+                                onPressed: () {
+                                Get.offAllNamed('/signup');
+                                },
+                                textColor: blackColor,
+                                color: appcolor)
+                            .box
+                            .width(context.screenWidth - 50)
+                            .make(),
+                        5.heightBox,
+                        
+                      ],
+                    )
+                        .box
+                        .color(whiteColor)
+                        .rounded
+                        .padding(const EdgeInsets.all(16.0))
+                        .width(context.screenWidth - 60)
+                        .make(),
+                                ],
+                              ),
+                  ))),
+        ),
       );
     
   }

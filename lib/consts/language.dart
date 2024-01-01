@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const appname = 'BidTake';
+const appname = 'QRave';
 const appversiyon = 'Version 1.0.0';
 const credits = 'Develapper';
 const appversiyoncredits = '$appversiyon - $credits';
