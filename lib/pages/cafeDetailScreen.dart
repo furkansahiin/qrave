@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:qrave/components/bgComponents.dart';
 import 'package:qrave/pages/cafeInformationPages.dart';
 import 'package:qrave/pages/menuWidget.dart';
-import 'package:qrave/pages/menulayout2.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:url_launcher/url_launcher.dart';
 

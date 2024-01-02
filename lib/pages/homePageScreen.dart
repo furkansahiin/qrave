@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qrave/components/bgComponents.dart';
-import 'package:qrave/components/googleAds.dart';
 import 'package:qrave/consts/language.dart';
 import 'package:velocity_x/velocity_x.dart';
 
