@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:qrave/components/bgComponents.dart';
-import 'package:qrave/components/buttonsComponents.dart';
 import 'package:qrave/pages/cafeInformationPages.dart';
+import 'package:qrave/pages/menuWidget.dart';
+import 'package:qrave/pages/menulayout2.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,21 +22,170 @@ class CafeDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    String jsonData = '''
+      [
+        {
+          "categoryName": "Category 1",
+          "items": [
+            {
+              "name": "Item 1",
+              "description": "Description 1",
+              "image": "image1.jpg",
+              "price": 10.0,
+              "numberOfPeople": 2
+            },
+            {
+              "name": "Item 2",
+              "description": "Description 2",
+              "image": "image2.jpg",
+              "price": 15.0
+            }
+          ]
+        },
+        {
+          "categoryName": "Category 2",
+          "items": [
+            {
+              "name": "Item 3",
+              "description": "Description 3",
+              "image": "image3.jpg",
+              "price": 20.0,
+              "numberOfPeople": 4
+            },
+            {
+              "name": "Item 4",
+              "description": "Description 4",
+              "image": "image1.jpg",
+              "price": 25.0
+            }
+          ]
+        },{
+          "categoryName": "Category 3",
+          "items": [
+            {
+              "name": "Item 1",
+              "description": "Description 1",
+              "image": "image1.jpg",
+              "price": 10.0,
+              "numberOfPeople": 2
+            },
+            {
+              "name": "Item 2",
+              "description": "Description 2",
+              "image": "image2.jpg",
+              "price": 15.0
+            }
+          ]
+        },
+        {
+          "categoryName": "Category 4",
+          "items": [
+            {
+              "name": "Item 3",
+              "description": "Description 3",
+              "image": "image3.jpg",
+              "price": 20.0,
+              "numberOfPeople": 4
+            },
+            {
+              "name": "Item 4",
+              "description": "Description 4",
+              "image": "image1.jpg",
+              "price": 25.0
+            }
+          ]
+        },{
+          "categoryName": "Category 5",
+          "items": [
+            {
+              "name": "Item 1",
+              "description": "Description 1",
+              "image": "image1.jpg",
+              "price": 10.0,
+              "numberOfPeople": 2
+            },
+            {
+              "name": "Item 2",
+              "description": "Description 2",
+              "image": "image2.jpg",
+              "price": 15.0
+            }
+          ]
+        },
+        {
+          "categoryName": "Category 6",
+          "items": [
+            {
+              "name": "Item 3",
+              "description": "Description 3",
+              "image": "image3.jpg",
+              "price": 20.0,
+              "numberOfPeople": 4
+            },
+            {
+              "name": "Item 4",
+              "description": "Description 4",
+              "image": "image1.jpg",
+              "price": 25.0
+            }
+          ]
+        },{
+          "categoryName": "Category 7",
+          "items": [
+            {
+              "name": "Item 1",
+              "description": "Description 1",
+              "image": "image1.jpg",
+              "price": 10.0,
+              "numberOfPeople": 2
+            },
+            {
+              "name": "Item 2",
+              "description": "Description 2",
+              "image": "image2.jpg",
+              "price": 15.0
+            }
+          ]
+        },
+        {
+          "categoryName": "Category 8",
+          "items": [
+            {
+              "name": "Item 3",
+              "description": "Description 3",
+              "image": "image3.jpg",
+              "price": 20.0,
+              "numberOfPeople": 4
+            },
+            {
+              "name": "Item 4",
+              "description": "Description 4",
+              "image": "image1.jpg",
+              "price": 25.0
+            }
+          ]
+        }
+      ]
+    ''';
+
+    List<dynamic> menuData = json.decode(jsonData);
+    List<MenuCategory> categories = menuData.map((data) => MenuCategory.fromJson(data)).toList();
+
+
     return bgWidget(
       child: DefaultTabController(
           length: 2,
           child: Scaffold(
             floatingActionButton: FloatingActionButton(
               onPressed: () async{
-                                 
-                                 String mapsUrl = 'https://www.google.com/maps/search/?api=1&query=$address';
-            
-                                  if (await canLaunchUrl(Uri.parse(mapsUrl))) {
-                                    await launchUrl(Uri.parse(mapsUrl));
-                                  } else {
-                                    print('Could not launch $mapsUrl');
-                                  }
-                                },
+                String mapsUrl = 'https://www.google.com/maps/search/?api=1&query=$address';
+                if (await canLaunchUrl(Uri.parse(mapsUrl))) {
+                  await launchUrl(Uri.parse(mapsUrl));
+                } else {
+                  print('Could not launch $mapsUrl');
+                }
+              },
               child: Icon(Icons.directions),
             ),
         appBar: AppBar(
@@ -66,7 +218,7 @@ class CafeDetailScreen extends StatelessWidget {
                     children: [
                       // first tab bar view widget
                       CafeInformationWidget(cafeName: cafeName, address: address),
-                      CafeMenuWidget(cafeName: cafeName),
+                      CafeMenuWidget(menuData: categories,),
                     ],
                   ),
                 ),
@@ -79,75 +231,3 @@ class CafeDetailScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-// Padding(
-//                       padding: const EdgeInsets.all(16.0),
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           cafeName.text.bold.size(24).make(),
-//                           SizedBox(height: 8),
-//                           Row(
-//                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                             children: [
-//                               ourButton(
-//                                 title: 'Cafe Bilgileri',
-//                                 onPressed: () {
-//                                   showDialog(
-//                                     context: context,
-//                                     builder: (BuildContext context) {
-//                                       return AlertDialog(
-//                                         title: Text('Cafe Bilgileri'),
-//                                         content: Column(
-//                                           crossAxisAlignment: CrossAxisAlignment.start,
-//                                           children: [
-//                                             Text('Cafe Adı: $cafeName'),
-//                                             Text('Adres: $address'),
-//                                           ],
-//                                         ),
-//                                         actions: [
-//                                           TextButton(
-//                                             onPressed: () {
-//                                               Navigator.of(context).pop();
-//                                             },
-//                                             child: Text('Kapat'),
-//                                           ),
-//                                         ],
-//                                       );
-//                                     },
-//                                   );
-//                                 },
-//                                 textColor: Colors.white,
-//                                 color: Colors.red,
-//                               ),
-//                               ourButton(
-//                                 title: 'Yol Tarifi Al',
-//                                 onPressed: () async{
-                                 
-//                                  String mapsUrl = 'https://www.google.com/maps/search/?api=1&query=$address';
-            
-//                                   if (await canLaunchUrl(Uri.parse(mapsUrl))) {
-//                                     await launchUrl(Uri.parse(mapsUrl));
-//                                   } else {
-//                                     print('Could not launch $mapsUrl');
-//                                   }
-//                                 },
-//                                 textColor: Colors.white,
-//                                 color: Colors.red,
-//                               ),
-//                             ],
-//                           ),
-        
-        
-//                         ],
-//                       ),
-        
-//                     ),
-            
-        

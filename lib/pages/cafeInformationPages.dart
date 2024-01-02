@@ -32,30 +32,3 @@ class CafeInformationWidget extends StatelessWidget {
   }
 }
 
-class CafeMenuWidget extends StatelessWidget {
-  final String cafeName;
-
-  const CafeMenuWidget({
-    Key? key,
-    required this.cafeName,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.pink,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Cafe Menu',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            // Buraya cafe menüsü ile ilgili widget'ları ekleyebilirsiniz.
-          ],
-        ),
-      ),
-    );
-  }
-}

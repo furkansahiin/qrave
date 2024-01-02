@@ -54,9 +54,8 @@ class NearCafeCarousel extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                cafeName.text.bold.size(18).make(),
-                SizedBox(height: 8),
-                'Adres: $address'.text.size(14).gray500.make(),
+                cafeName.text.bold.size(14).maxLines(1).make(),
+                'Adres: $address'.text.size(10).gray500.maxLines(2).make(),
               ],
             ),
           ),

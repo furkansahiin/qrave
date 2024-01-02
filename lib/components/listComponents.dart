@@ -39,19 +39,18 @@ Widget buildCafeList(BuildContext context, String imagePath, String cafeName, St
       margin: EdgeInsets.all(5.0),
       child: Card(
         child: Container(
-          width: 200,
-          height: 275,
+          width: 150,
+          height: 200,
           child: Column(
             children: [
-              Image.asset(imagePath, fit: BoxFit.cover, height: 150, width: double.infinity),
+              Image.asset(imagePath, fit: BoxFit.cover, height: 120, width: double.infinity),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    cafeName.text.bold.size(18).make(),
-                    SizedBox(height: 8),
-                    'Adres: $address'.text.size(14).gray500.make(),
+                    cafeName.text.bold.size(12).maxLines(1).make(),
+                    'Adres: $address'.text.size(8).gray500.maxLines(2).make(),
                   ],
                 ),
               ),

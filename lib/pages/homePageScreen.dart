@@ -28,14 +28,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                "Yakın Mekanlar".text.bold.xl2.make().p(8),
-                5.heightBox,
+                "Yakın Mekanlar".text.bold.xl2.make().p(4),
                 NearCafeCarousel(),
-                15.heightBox,
-                "Popüler Mekanlar".text.bold.xl2.make().p(8),
                 5.heightBox,
+                "Popüler Mekanlar".text.bold.xl2.make().p(4),
                 PopulerCafeCarousel(),
-                10.heightBox,
+                5.heightBox,
                 // GoogleAdsContainer(),
                 NearCafeCarousel(),
                 30.heightBox,
