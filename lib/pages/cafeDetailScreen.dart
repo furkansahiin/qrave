@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:qrave/components/bgComponents.dart';
 import 'package:qrave/pages/cafeInformationPages.dart';
+import 'package:qrave/pages/cafeimagewidget.dart';
 import 'package:qrave/pages/menuWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -187,46 +188,70 @@ class CafeDetailScreen extends StatelessWidget {
               },
               child: Icon(Icons.directions),
             ),
-        appBar: AppBar(
-          title: cafeName.text.make(),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 225,
-                  child: Image.asset(imagePath, width: double.infinity, fit: BoxFit.contain),
-                ),
-                20.heightBox,
-                Container(
-                  height: 50,
-                  child: AppBar(
-                    bottom: TabBar(
-                      tabs: [
-                        Tab(icon: Icon(Icons.info)),
-                        Tab(icon: Icon(Icons.menu_book)),
-                      ],
-                    ),
-                  ),
-                ),
-                // create widgets for each tab bar here
-                SizedBox(
-                  height: context.screenHeight - 350,
-                  child: TabBarView(
-                    children: [
-                      // first tab bar view widget
-                      CafeInformationWidget(cafeName: cafeName, address: address),
-                      CafeMenuWidget(menuData: categories,),
-                    ],
-                  ),
-                ),
-                // Diğer detaylar buraya eklenebilir
-              ],
+        // appBar: AppBar(
+        //   title: cafeName.text.make(),
+        // ),
+        body: SafeArea(
+          child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              leading: Container(),
+              expandedHeight: 300.0,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: CafeImagesWidget(imageUrls: [imagePath, imagePath]),
+              ),
             ),
+            SliverPersistentHeader(
+              delegate: _SliverAppBarDelegate(
+                TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.info)),
+                    Tab(icon: Icon(Icons.menu_book)),
+                  ],
+                ),
+              ),
+              pinned: true,
+            ),
+          ];
+        },
+        body: TabBarView(
+          children: [
+            CafeInformationWidget(cafeName: cafeName, address: address),
+            CafeMenuWidget(menuData: categories),
+          ],
+        ),
+      ),
         ),
         ),
       ),
     );
   }
 }
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final TabBar tabBar;
+
+  _SliverAppBarDelegate(this.tabBar);
+
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
+  }
+}
+

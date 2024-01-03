@@ -71,11 +71,11 @@ class _LoginScreenState extends State<loginPageScreen> {
               // title: appname.text.size(22).white.make(),
               // centerTitle: true,
               leading: IconButton(
-    onPressed: () {
-      Get.offAllNamed("/");
-    },
-    icon: Icon(Icons.arrow_back, color: Colors.white), // Geri tuşunun rengini ayarla
-  ),
+                onPressed: () {
+                  Get.offAllNamed("/");
+                },
+                icon: Icon(Icons.arrow_back, color: Colors.white), // Geri tuşunun rengini ayarla
+              ),
             ),
               resizeToAvoidBottomInset: false,
               body: SingleChildScrollView(
